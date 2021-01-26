@@ -41,7 +41,7 @@ namespace lunar_jre_switcher
                 Console.WriteLine("Downloading jre-x64");
                 string tempjre = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\";
 
-                wc.DownloadFile("https://raw.githubusercontent.com/pixlofc/lunar-jre-switcher/main/jre-x64.zip", tempjre + "jre-x64.zip");
+                wc.DownloadFile("https://cdn-101.anonfiles.com/v1teX8C0p9/2cdbcd23-1611686934/jre-x64.zip", tempjre + "jre-x64.zip");
 
                 Console.WriteLine("Extracting jre-x64.zip");
 
@@ -52,14 +52,48 @@ namespace lunar_jre_switcher
                 string[] jres = Directory.GetDirectories(lunarpath);
                 foreach(string jresdirs in jres)
                 {
-                    if (Directory.Exists(jresdirs + "/bin/") || Directory.Exists(jresdirs + "/lib/"))
+                    Console.WriteLine(jresdirs);
+                    if (Directory.Exists(jresdirs + "\\bin\\") || Directory.Exists(jresdirs + "\\lib\\"))
                     {
-                        string bin = jresdirs.ToString() + "/bin/";
-                        string lib = jresdirs.ToString() + "/lib/";
+                        string bin = jresdirs.ToString() + "\\bin\\";
+                        string lib = jresdirs.ToString() + "\\lib\\";
                         Directory.Delete(bin, true);
                         Directory.Delete(lib, true);
+                        Console.WriteLine("Switching " + jresdirs);
+                        Directory.CreateDirectory(jresdirs + "\\bin\\");
+                        Directory.CreateDirectory(jresdirs + "\\lib\\");
+                        string SourcePath1 = tempjre + "jre-x64\\bin\\";
+                        string DestinationPath1 = jresdirs + "\\bin\\";
+                        string SourcePath2 = tempjre + "jre-x64\\lib\\";
+                        string DestinationPath2 = jresdirs + "\\lib\\";
+
+                        foreach (string dirPath in Directory.GetDirectories(SourcePath1, "*",
+                            SearchOption.AllDirectories))
+                            Directory.CreateDirectory(dirPath.Replace(SourcePath1, DestinationPath1));
+
+                        foreach (string newPath in Directory.GetFiles(SourcePath1, "*.*",
+                            SearchOption.AllDirectories))
+                            File.Copy(newPath, newPath.Replace(SourcePath1, DestinationPath1), true);
+
+
+                        foreach (string dirPath in Directory.GetDirectories(SourcePath2, "*",
+                            SearchOption.AllDirectories))
+                            Directory.CreateDirectory(dirPath.Replace(SourcePath2, DestinationPath2));
+
+                        foreach (string newPath in Directory.GetFiles(SourcePath2, "*.*",
+                            SearchOption.AllDirectories))
+                            File.Copy(newPath, newPath.Replace(SourcePath2, DestinationPath2), true);
+
+                        Console.WriteLine("Switched " + jresdirs);
+                    } else
+                    {
+                        Console.WriteLine("Failed to switch this jre! If all failed try launching lunar client then switching");
                     }
                 }
+                Console.WriteLine("Deleting temp files");
+                File.Delete(tempjre + "jre-x64.zip");
+                Directory.Delete(tempjre + "jre-x64");
+                Console.WriteLine("Done, you can close this now");
                 while (true) { }
             }
             else
