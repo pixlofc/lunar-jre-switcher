@@ -1,0 +1,7 @@
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\bin\Debug\lunar-jre-switcher.exe.config
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\bin\Debug\lunar-jre-switcher.exe
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\bin\Debug\lunar-jre-switcher.pdb
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\obj\Debug\lunar-jre-switcher.csprojAssemblyReference.cache
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\obj\Debug\lunar-jre-switcher.csproj.CoreCompileInputs.cache
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\obj\Debug\lunar-jre-switcher.exe
+C:\Users\Pixel\Desktop\Programming\C#\lunar-jre-switcher\lunar-jre-switcher\obj\Debug\lunar-jre-switcher.pdb
