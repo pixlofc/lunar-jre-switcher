@@ -1,2 +1,5 @@
 # lunar-jre-switcher
-Lunar client jre switcher written in C# (might get kinda patched)
+can fix java launch errors and pixel-format errors
+
+
+i have no social life send help
