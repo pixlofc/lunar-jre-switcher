@@ -13,6 +13,35 @@ namespace lunar_jre_switcher
     {
         static WebClient wc = new WebClient();
 
+        static string Mediafiredownload(string download)
+        {
+            HttpWebRequest req;
+            HttpWebResponse res;
+            string str = "";
+            req = (HttpWebRequest)WebRequest.Create(download);
+            res = (HttpWebResponse)req.GetResponse();
+            str = new StreamReader(res.GetResponseStream()).ReadToEnd();
+            int indexurl = str.IndexOf("http://download1507");
+            int indexend = GetNextIndexOf('"', str, indexurl);
+            string direct = str.Substring(indexurl, indexend - indexurl);
+            return direct;
+        }
+
+        static int GetNextIndexOf(char c, string source, int start)
+        {
+            if (start < 0 || start > source.Length - 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            for (int i = start; i < source.Length; i++)
+            {
+                if (source[i] == c)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Lunar jre switcher by Pixel#8194\n");
@@ -41,9 +70,21 @@ namespace lunar_jre_switcher
                 Console.WriteLine("Downloading jre-x64");
                 string tempjre = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\";
 
-                wc.DownloadFile("https://cdn-101.anonfiles.com/v1teX8C0p9/2cdbcd23-1611686934/jre-x64.zip", tempjre + "jre-x64.zip");
+                //string directlink = Mediafiredownload("https://www.mediafire.com/file/xym6f6uwgbbuap8/jre-x64.zip/file");
+
+                if (File.Exists(tempjre + "jre-x64.zip"))
+                {
+                    File.Delete(tempjre + "jre-x64.zip");
+                }
+
+                wc.DownloadFile("https://download1507.mediafire.com/usqmz2xwktkg/xym6f6uwgbbuap8/jre-x64.zip", tempjre + "jre-x64.zip");
 
                 Console.WriteLine("Extracting jre-x64.zip");
+
+                if (Directory.Exists(tempjre + "jre-x64"))
+                {
+                    Directory.Delete(tempjre + "jre-x64", true);
+                }
 
                 ZipFile.ExtractToDirectory(tempjre + "jre-x64.zip", tempjre + "jre-x64");
 
@@ -92,7 +133,7 @@ namespace lunar_jre_switcher
                 }
                 Console.WriteLine("Deleting temp files");
                 File.Delete(tempjre + "jre-x64.zip");
-                Directory.Delete(tempjre + "jre-x64");
+                Directory.Delete(tempjre + "jre-x64", true);
                 Console.WriteLine("Done, you can close this now");
                 while (true) { }
             }
